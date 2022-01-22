@@ -29,10 +29,16 @@ public class AudioManager : MonoBehaviour
     public void PlaySoundOnObject(SoundEffects effect, GameObject objectToPlay)
     {
         AudioController controller = GetControllerByEffect(effect);
-        AudioSource sourceToPlay = objectToPlay.AddComponent<AudioSource>();
+
+        AudioSource sourceToPlay = GetSourceToPlay(objectToPlay);
         controller.Source = sourceToPlay;
         controller.PlaySound();
 
+    }
+
+    private static AudioSource GetSourceToPlay(GameObject objectToPlay)
+    {
+        return objectToPlay.GetComponent<AudioSource>() ? objectToPlay.GetComponent<AudioSource>() : objectToPlay.AddComponent<AudioSource>();
     }
 
     public void StopAllSounds()
